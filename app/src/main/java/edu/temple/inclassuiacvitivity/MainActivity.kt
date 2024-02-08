@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener;
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +16,8 @@ class MainActivity : AppCompatActivity() {
         val displayTextView = findViewById<TextView>(R.id.textDisplay)
 
         /* TODO Step 1: Populate this array */
-        var numberArray = Array(50, {0})
+        var numberArray = Array(50, {i -> (i + 1) * 2})
+        /*
         var counter : Int = 0
         for(i in 2..100){
             if(i % 2 == 0){
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() {
                 counter = counter + 1
             }
         }
+        */
 
         //Log.d("Output", numberArray.toString())
 
@@ -33,7 +36,20 @@ class MainActivity : AppCompatActivity() {
 
 
         // TODO Step 3: Change TextView's text size to the number selected in the Spinner */
-        //spinner.onItemSelectedListener = object: ...
+        spinner.onItemSelectedListener = object : OnItemSelectedListener{
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                p0?.run{
+                    displayTextView.textSize = getItemAtPosition(p2).toString().toFloat()
+
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
 
     }
 }
